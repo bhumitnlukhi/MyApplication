@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="login_screen_name">Login Screen</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing</string>
+    <string name="Simple_way_to_earn_money">Simple way to\n invest your money</string>
+    <string name="Lorem_simple_dummy">Lorem Ipsum is simply dummy text of the printing and\n typesetting industry.</string>
+</resources>
