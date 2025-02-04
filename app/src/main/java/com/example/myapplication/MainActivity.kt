@@ -54,6 +54,11 @@ fun Navigation() {
             OtpScreen(navController = navController,phoneNumber = phoneNumber)
         }
 
+        //Home screen
+        composable("home_screen") {
+            HomeScreen(navController = navController)
+        }
+
     }
 }
 

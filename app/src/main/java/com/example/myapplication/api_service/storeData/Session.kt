@@ -13,9 +13,9 @@ class Session @Inject constructor(private val dataStore: DataStore<Preferences>)
     companion object {
         const val DATA = "Data"
         private const val NAME = "Name"
-        private const val ACCESSTOKEN = "AccessToken"
+        private const val TOKEN = "AccessToken"
         val name = stringPreferencesKey(NAME)
-        val accessToken = stringPreferencesKey(ACCESSTOKEN)
+        val accessToken = stringPreferencesKey(TOKEN)
     }
 
 
@@ -29,8 +29,6 @@ class Session @Inject constructor(private val dataStore: DataStore<Preferences>)
     }
 
     suspend fun setUserName(userName: String) {
-        println("user access token is from userName: $userName")
-
         dataStore.edit { preference ->
             preference[name] = userName
         }
@@ -45,7 +43,6 @@ class Session @Inject constructor(private val dataStore: DataStore<Preferences>)
     }
 
     suspend fun setAccessToken(accessTokenUser: String) {
-        println("user access token is : $accessTokenUser")
         dataStore.edit { preference ->
             preference[accessToken] = accessTokenUser
         }

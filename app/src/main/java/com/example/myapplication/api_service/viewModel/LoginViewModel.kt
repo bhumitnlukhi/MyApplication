@@ -7,7 +7,9 @@ import com.example.myapplication.api_service.data.LoginRequest
 import com.example.myapplication.api_service.data.LoginResponse
 import com.example.myapplication.api_service.storeData.Session
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,24 +23,26 @@ class LoginViewModel @Inject constructor(
     var userName = mutableStateOf("")
     var accessToken = mutableStateOf("")
 
-    fun gettingUserName() : Boolean {
+    suspend fun gettingUserName() : Boolean {
         // Collect username when ViewModel is initialized
         viewModelScope.launch {
             session.getUserName().collect {
-                userName.value = it
-                println("userName value getting like this ${userName.value} ${userName.value != ""}")
+                withContext(Dispatchers.Main) {
+                    userName.value = it
+                }
             }
         }
         return userName.value != ""
 
     }
 
-    fun gettingAccessToken(): Boolean {
+    suspend fun gettingAccessToken(): Boolean {
         // Collect username when ViewModel is initialized
         viewModelScope.launch {
             session.getAccessToken().collect {
-                accessToken.value = it
-                println("Access token is :  ${accessToken.value} ")
+                withContext(Dispatchers.Main) {
+                    accessToken.value = it
+                }
             }
         }
         return accessToken.value != ""
@@ -56,15 +60,10 @@ class LoginViewModel @Inject constructor(
                 isLoading.value = false
                 if (response.isSuccessful) {
                     loginResponse.value = response.body()
-                    session.setUserName(loginResponse.value?.accessToken ?: "")
-                    session.getUserName().collect {
-                        userName.value = it
-                    }
+                    session.setUserName(loginResponse.value?.username ?: "")
                     session.setAccessToken(loginResponse.value?.accessToken ?: "")
-                    session.getAccessToken().collect {
-                        accessToken.value = it
-                        println("access token getting and printing ${accessToken.value} : $it")
-                    }
+                    gettingUserName()
+                    gettingAccessToken()
 
                 } else {
 

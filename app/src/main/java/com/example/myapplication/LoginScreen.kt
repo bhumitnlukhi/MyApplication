@@ -282,7 +282,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel = hiltVie
 
                     // Success Response
                     if (loginResponse != null) {
-                        navController.navigate("onBoarding_screen")
+                        navController.navigate("home_screen")
                     }
 
 

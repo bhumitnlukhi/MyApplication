@@ -27,13 +27,13 @@ import kotlinx.coroutines.delay
     LaunchedEffect(key1 = true) {
 
         // Customize the delay time
-        viewModel.gettingUserName()
+        viewModel.gettingAccessToken()
         delay(3000L)
-            if(viewModel.userName.value != ""){
-                navController.navigate("onBoarding_screen") { popUpTo("splash") { inclusive = true } }
+            if(viewModel.accessToken.value != ""){
+                navController.navigate("home_screen") { popUpTo("splash") { inclusive = true } }
             }
         else {
-                navController.navigate("login_screen") { popUpTo("splash") { inclusive = true } }
+                navController.navigate("onBoarding_screen") { popUpTo("splash") { inclusive = true } }
             }
 
     }
